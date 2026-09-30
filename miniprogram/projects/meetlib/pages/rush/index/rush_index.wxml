@@ -1,0 +1,51 @@
+<!-- 闪抢活动列表（用户端） -->
+<view class="ri-wrap">
+
+	<block wx:if="{{isLoad}}">
+
+		<view class="ri-card" wx:for="{{list}}" wx:key="index" bindtap="bindItemTap" data-id="{{item.id}}">
+
+			<view class="ri-banner">
+				<image class="ri-img" src="{{item.pic || '/images/cover.gif'}}" mode="aspectFill"></image>
+				<view class="ri-tag {{item.tipClass}}">{{item.statusDesc}}</view>
+				<view class="ri-soldout" wx:if="{{item.soldOut && item.status==2}}">已抢完</view>
+			</view>
+
+			<view class="ri-body">
+				<view class="ri-title">{{item.title}}</view>
+				<view class="ri-desc" wx:if="{{item.desc}}">{{item.desc}}</view>
+
+				<view class="ri-line">
+					<text class="k">时间</text>
+					<text class="v {{item.tipClass}}">{{item.timeText}}</text>
+				</view>
+
+				<view class="ri-line" wx:if="{{item.place}}">
+					<text class="k">地点</text>
+					<text class="v">{{item.place}}</text>
+				</view>
+
+				<view class="ri-foot">
+					<view class="ri-stock">
+						<text class="num">{{item.left}}</text>
+						<text class="lab">/ {{item.total}} 份</text>
+					</view>
+					<view class="ri-limit" wx:if="{{item.limit>1}}">每人限 {{item.limit}} 份</view>
+					<view class="ri-btn {{item.hasStock?'on':''}}">
+						{{item.hasStock ? '立即抢' : (item.status==1 ? '即将开抢' : (item.status==2 ? '查看' : '已结束'))}}
+					</view>
+				</view>
+			</view>
+
+		</view>
+
+		<view class="ri-empty" wx:if="{{list.length==0}}">
+			<view class="txt">暂无闪抢活动</view>
+			<view class="sub">活动发布后会在这里出现</view>
+		</view>
+
+	</block>
+
+	<view class="ri-loading" wx:else>加载中…</view>
+
+</view>

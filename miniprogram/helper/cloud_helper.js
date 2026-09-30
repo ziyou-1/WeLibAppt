@@ -101,6 +101,83 @@ function callCloud(route, params = {}, options) {
 
 		let PID = pageHelper.getPID();
 
+		// ================= 本地调试模式 =================
+		// 直连 local-dev/server.js（真实执行 cloudfunctions/mcloud 业务代码），
+		// 无需微信云开发环境。关闭 setting.LOCAL_DEV 即恢复原生云调用。
+		if (setting.LOCAL_DEV && setting.LOCAL_DEV_URL) {
+			wx.request({
+				url: setting.LOCAL_DEV_URL,
+				method: 'POST',
+				header: { 'content-type': 'application/json' },
+				data: {
+					route: route,
+					token: token,
+					PID: PID,
+					params: params
+				},
+				success: function (res) {
+					let result = res.data;
+					if (!result || typeof (result.code) == 'undefined') {
+						if (hint)
+							wx.showModal({
+								title: '',
+								content: '本地服务返回异常，请确认已运行 node local-dev/server.js',
+								showCancel: false
+							});
+						reject(result);
+						return;
+					}
+
+					if (result.code == CODE.LOGIC || result.code == CODE.DATA) {
+						if (hint)
+							wx.showModal({
+								title: '温馨提示',
+								content: result.msg,
+								showCancel: false
+							});
+						reject(result);
+						return;
+					} else if (result.code == CODE.ADMIN_ERROR) {
+						wx.reLaunch({
+							url: pageHelper.fmtURLByPID('/pages/admin/index/login/admin_login'),
+						});
+						return;
+					} else if (result.code != CODE.SUCC) {
+						if (hint)
+							wx.showModal({
+								title: '温馨提示',
+								content: '系统开小差了，请稍后重试',
+								showCancel: false
+							});
+						reject(result);
+						return;
+					}
+
+					resolve(result);
+				},
+				fail: function (err) {
+					console.log(err);
+					if (hint)
+						wx.showModal({
+							title: '',
+							content: '无法连接本地服务 ' + setting.LOCAL_DEV_URL + '，请先执行 node local-dev/server.js',
+							showCancel: false
+						});
+					reject(err);
+				},
+				complete: function () {
+					if (hint) {
+						if (title == 'bar')
+							wx.hideNavigationBarLoading();
+						else
+							wx.hideLoading();
+					}
+				}
+			});
+			return;
+		}
+		// ================= 本地调试模式结束 =================
+
 		wx.cloud.callFunction({
 			name: 'mcloud',
 			data: {
@@ -270,6 +347,9 @@ async function dataList(that, listName, route, params, options, isReverse = fals
 async function getTempFileURLOne(fileID) {
 	if (!fileID) return '';
 
+	// 本地调试模式：fileID 即本地可访问路径，无需换取临时链接
+	if (setting.LOCAL_DEV) return fileID;
+
 	let result = await wx.cloud.getTempFileURL({
 		fileList: [fileID],
 	})
@@ -280,6 +360,9 @@ async function getTempFileURLOne(fileID) {
 
 async function transTempPics(imgList, dir, id, prefix = '') {
 	if (setting.IS_DEMO) return imgList; 
+
+	// 本地调试模式：跳过云存储上传，直接沿用本地临时路径（模拟器中可正常预览）
+	if (setting.LOCAL_DEV) return imgList;
 
 	if (prefix && !prefix.endsWith('_')) prefix += '_';
 	if (!id) id = timeHelper.time('YMD');

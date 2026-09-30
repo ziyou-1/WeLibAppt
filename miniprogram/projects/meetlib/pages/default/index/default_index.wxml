@@ -16,6 +16,11 @@
 				<view class="title">活动预约</view>
 			</view>
 
+			<view class="item flash" bindtap="url" data-url="../../rush/index/rush_index">
+				<text class="ix icon-flashbuyfill"></text>
+				<view class="title">限时闪抢</view>
+			</view>
+
 			<view class="item"  bindtap="url" data-url="../../about/index/about_index?key=SETUP_CONTENT_KNOW">
 				<text class="ix icon-form"></text>
 				<view class="title">参观指南</view>

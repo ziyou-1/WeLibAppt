@@ -12,3 +12,13 @@ $RECYCLE.BIN/
 
 # Node.js
 node_modules/
+
+# ===== 本地开发运行数据（不入库）=====
+# 模拟层的云数据库落盘（测试活动/订单/号码池等）
+local-dev/data/
+# 云存储模拟目录（导出的 Excel 等运行时产物）
+local-dev/_files/
+# 服务运行日志
+local-dev/*.log
+_server.log
+_server.err.log

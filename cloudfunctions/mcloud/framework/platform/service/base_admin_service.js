@@ -38,7 +38,7 @@ class BaseAdminService extends BaseService {
 			ADMIN_TOKEN_TIME: ['>', timeUtil.time() - config.ADMIN_LOGIN_EXPIRE * 1000], // token有效时间
 			ADMIN_STATUS: 1,
 		}
-		let admin = await AdminModel.getOne(where, 'ADMIN_ID,ADMIN_PHONE,ADMIN_NAME,ADMIN_TYPE,ADMIN_DESC');
+		let admin = await AdminModel.getOne(where, 'ADMIN_ID,ADMIN_PHONE,ADMIN_NAME,ADMIN_TYPE,ADMIN_ROLE,ADMIN_DESC');
 		if (!admin)
 			this.AppError('管理员不存在', appCode.ADMIN_ERROR);
 
@@ -54,7 +54,7 @@ class BaseAdminService extends BaseService {
 			ADMIN_STATUS: 1,
 			ADMIN_TYPE: 1
 		}
-		let admin = await AdminModel.getOne(where, 'ADMIN_ID,ADMIN_PHONE,ADMIN_NAME,ADMIN_TYPE');
+		let admin = await AdminModel.getOne(where, 'ADMIN_ID,ADMIN_PHONE,ADMIN_NAME,ADMIN_TYPE,ADMIN_ROLE');
 		if (!admin)
 			this.AppError('超级管理员不存在', appCode.ADMIN_ERROR);
 

@@ -27,14 +27,16 @@ module.exports = {
 
 	'admin/login': 'admin/admin_mgr_controller@adminLogin',
 	'admin/mgr_list': 'admin/admin_mgr_controller@getMgrList',
-	'admin/mgr_insert': 'admin/admin_mgr_controller@insertMgr#demo',
-	'admin/mgr_del': 'admin/admin_mgr_controller@delMgr#demo',
+	'admin/mgr_insert': 'admin/admin_mgr_controller@insertMgr',
+	'admin/mgr_del': 'admin/admin_mgr_controller@delMgr',
 	'admin/mgr_detail': 'admin/admin_mgr_controller@getMgrDetail',
-	'admin/mgr_edit': 'admin/admin_mgr_controller@editMgr#demo',
-	'admin/mgr_status': 'admin/admin_mgr_controller@statusMgr#demo',
-	'admin/mgr_pwd': 'admin/admin_mgr_controller@pwdMgr#demo',
+	'admin/mgr_edit': 'admin/admin_mgr_controller@editMgr',
+	'admin/mgr_status': 'admin/admin_mgr_controller@statusMgr',
+	'admin/mgr_pwd': 'admin/admin_mgr_controller@pwdMgr',
+	'admin/mgr_reset_pwd': 'admin/admin_mgr_controller@resetMgrPwd',
+	'admin/mgr_perms': 'admin/admin_mgr_controller@getMyPerms',
 	'admin/log_list': 'admin/admin_mgr_controller@getLogList',
-	'admin/log_clear': 'admin/admin_mgr_controller@clearLog#demo',
+	'admin/log_clear': 'admin/admin_mgr_controller@clearLog',
 
 	'admin/setup_set': 'admin/admin_setup_controller@setSetup#demo',
 	'admin/setup_set_content': 'admin/admin_setup_controller@setContentSetup#demo',
@@ -111,5 +113,65 @@ module.exports = {
 	'admin/join_data_get': 'admin/admin_meet_controller@joinDataGet',
 	'admin/join_data_export': 'admin/admin_meet_controller@joinDataExport',
 	'admin/join_data_del': 'admin/admin_meet_controller@joinDataDel',
+
+	// ===== 闪抢（门店闪购预约）=====
+	// 前台：校时 / 轻量状态 / 详情 / 抢号 / 我的预约
+	'rush/time': 'rush_controller@getServerTime',
+	'rush/list': 'rush_controller@getRushList',
+	'rush/status': 'rush_controller@getRushStatus',
+	'rush/detail': 'rush_controller@getRushDetail',
+	'rush/grab': 'rush_controller@grab',
+	'rush/my_order': 'rush_controller@getMyOrder',
+	'rush/my_list': 'rush_controller@getMyOrderList',
+	'rush/cancel': 'rush_controller@cancelMyOrder',
+	'rush/subscribe': 'rush_controller@subscribe',
+
+	// 后台：活动管理
+	'admin/rush_list': 'admin/admin_rush_controller@getRushList',
+	'admin/rush_detail': 'admin/admin_rush_controller@getRushDetail',
+	'admin/rush_insert': 'admin/admin_rush_controller@insertRush',
+	'admin/rush_edit': 'admin/admin_rush_controller@editRush',
+	'admin/rush_del': 'admin/admin_rush_controller@delRush',
+
+	// 后台：库存管理
+	'admin/rush_publish': 'admin/admin_rush_controller@publishRush',
+	'admin/rush_pause': 'admin/admin_rush_controller@pauseRush',
+	'admin/rush_lock': 'admin/admin_rush_controller@lockRush',
+	'admin/rush_reduce': 'admin/admin_rush_controller@reduceRush',
+
+	// 后台：名单与核销
+	'admin/rush_order_list': 'admin/admin_rush_controller@getRushOrderList',
+	'admin/rush_checkin': 'admin/admin_rush_controller@checkinRush',
+	'admin/rush_cancel_checkin': 'admin/admin_rush_controller@cancelCheckinRush',
+	'admin/rush_cancel_order': 'admin/admin_rush_controller@cancelRushOrder',
+	'admin/rush_order_export': 'admin/admin_rush_controller@exportRushOrder',
+
+	// 后台：核销流水
+	'admin/rush_checkin_list': 'admin/admin_rush_controller@getCheckinList',
+	'admin/rush_checkin_export': 'admin/admin_rush_controller@exportCheckin',
+
+	// 后台：风控
+	'admin/rush_black_list': 'admin/admin_rush_controller@getBlackList',
+	'admin/rush_black_insert': 'admin/admin_rush_controller@insertBlack',
+	'admin/rush_black_del': 'admin/admin_rush_controller@delBlack',
+	'admin/rush_risk_get': 'admin/admin_rush_controller@getRisk',
+	'admin/rush_risk_set': 'admin/admin_rush_controller@setRisk',
+
+	// 后台：订阅消息
+	'admin/rush_tmpl_get': 'admin/admin_rush_controller@getTmpl',
+	'admin/rush_tmpl_set': 'admin/admin_rush_controller@setTmpl',
+	'admin/rush_remind': 'admin/admin_rush_controller@sendRemind',
+	'admin/rush_sub_list': 'admin/admin_rush_controller@getSubList',
+
+	// 后台：数据备份
+	'admin/rush_dashboard': 'admin/admin_rush_controller@dashboard',
+	'admin/rush_data_stats': 'admin/admin_rush_controller@dataStats',
+	'admin/rush_backup': 'admin/admin_rush_controller@backup',
+	'admin/rush_check_consistency': 'admin/admin_rush_controller@checkConsistency',
+	'admin/rush_fix_consistency': 'admin/admin_rush_controller@fixConsistency',
+
+	// 后台：导出文件管理
+	'admin/rush_export_url': 'admin/admin_rush_controller@getExportUrl',
+	'admin/rush_export_del': 'admin/admin_rush_controller@delExport',
 
 }

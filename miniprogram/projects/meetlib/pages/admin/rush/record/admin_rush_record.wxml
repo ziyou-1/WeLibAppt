@@ -1,0 +1,71 @@
+<!-- 闪抢核销流水 -->
+<block wx:if="{{isAdmin&&isLoad}}">
+
+	<cmpt-comm-list source='admin' type="admin-rush-record" search="{{search||''}}" _menus="{{sortMenus}}" _items="{{sortItems}}"
+		route="admin/rush_checkin_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索购买码 / 手机号 / 姓名" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+			<button bindtap="bindExportTap" class="btn radius bg-admin text-white margin-right-s">导出 Excel</button>
+		</view>
+
+		<!-- List Begin -->
+		<view class="admin-comm-list">
+			<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共 {{dataList.total}} 条流水</view>
+
+			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
+				<view class="no">{{index+1}}</view>
+
+				<view class="header">
+					<view class="left text-cut">
+						<text class="rr-code">{{item.CHECKIN_CODE}}</text>
+					</view>
+					<view class="right">
+						<text wx:if="{{item.CHECKIN_TYPE==1}}" class="text-green">{{item.typeDesc}}</text>
+						<text wx:else class="text-orange">{{item.typeDesc}}</text>
+					</view>
+				</view>
+
+				<view class="info">
+					<view class="info-item">
+						<view class="title">号码</view>
+						<view class="mao">：</view>
+						<view class="content">#{{item.CHECKIN_NO}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">姓名</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.CHECKIN_NAME||'—'}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">手机号</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.CHECKIN_PHONE||'—'}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">核销员</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.CHECKIN_ADMIN_NAME||'—'}}</view>
+					</view>
+
+					<view class="info-item" wx:if="{{item.CHECKIN_DEVICE}}">
+						<view class="title">设备</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.CHECKIN_DEVICE}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{skin:'text-grey',dataList}}" />
+		<!--load end-->
+	</cmpt-comm-list>
+
+</block>
+
+<view wx:else class="rr-loading">加载中…</view>

@@ -1,0 +1,236 @@
+/* ============================================================
+ * 闪抢活动管理页
+ * 注意：admin.wxss 提供 .admin-comm-list 的横向 label-value 布局，
+ * admin_list_style.wxss 提供 .oprt 操作区布局 —— 缺任一个都会导致
+ * 字段竖向堆叠。原有后台页面均在各自 wxss 顶部 import 这两个文件。
+ * ============================================================ */
+
+@import '../../../../../../style/public/admin.wxss';
+@import '../../../../../../style/project/admin_list_style.wxss';
+
+page {
+	background-color: #F3F5F7;
+}
+
+/* ---------------- 覆盖项目默认列表样式，统一到设计 token ---------------- */
+.admin-comm-list .item {
+	border: none;
+	border-radius: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+	margin-bottom: 24rpx;
+}
+
+.admin-comm-list .item .header {
+	background: #fff;
+	border-bottom: 2rpx solid #F0F2F4;
+	line-height: 2.4;
+	padding: 0 24rpx;
+}
+
+.admin-comm-list .item .header .left {
+	font-size: 32rpx;
+	font-weight: 700;
+	color: #1F2937;
+}
+
+.admin-comm-list .item .header .right {
+	font-size: 26rpx;
+	font-weight: 600;
+}
+
+.admin-comm-list .item .no {
+	color: #16475A;
+	opacity: 0.10;
+	font-size: 48rpx;
+	right: 20rpx;
+	bottom: 12rpx;
+}
+
+.admin-comm-list .item .info {
+	padding: 24rpx 24rpx 20rpx;
+	min-height: 0;
+}
+
+.admin-comm-list .item .info .info-item {
+	margin-bottom: 16rpx;
+	line-height: 1.5;
+	font-size: 27rpx;
+}
+
+.admin-comm-list .item .info .info-item .title {
+	width: 110rpx;
+	color: #6B7280;
+	font-weight: 400;
+	text-align: left;
+}
+
+.admin-comm-list .item .info .info-item .mao {
+	color: #9CA3AF;
+	margin-right: 8rpx;
+}
+
+.admin-comm-list .item .info .info-item .content {
+	color: #1F2937;
+}
+
+/* 操作区：按钮更紧凑、可换行、触摸目标更大 */
+.admin-comm-list .item .info .oprt {
+	padding: 8rpx 0 0;
+	margin-top: 16rpx;
+	border-top: 2rpx solid #F7F8F9;
+	padding-top: 20rpx;
+	justify-content: flex-start;
+}
+
+.admin-comm-list .item .info .oprt .btn {
+	height: 72rpx !important;
+	line-height: 72rpx !important;
+	padding: 0 28rpx !important;
+	font-size: 26rpx !important;
+	border-radius: 999rpx !important;
+	background-color: #F0F2F4 !important;
+	color: #4B5563;
+	margin: 0 16rpx 16rpx 0 !important;
+	transition: opacity 0.15s;
+}
+
+.admin-comm-list .item .info .oprt .btn:active {
+	opacity: 0.7;
+}
+
+
+/* ---------------- 遮罩与弹窗 ---------------- */
+.rk-mask {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(17, 24, 39, 0.5);
+	z-index: 100;
+}
+
+.rk-modal {
+	position: fixed;
+	left: 56rpx;
+	right: 56rpx;
+	top: 50%;
+	transform: translateY(-50%);
+	background: #fff;
+	border-radius: 28rpx;
+	padding: 44rpx 36rpx 28rpx;
+	z-index: 101;
+	box-shadow: 0 20rpx 60rpx rgba(17, 24, 39, 0.28);
+	max-height: 82vh;
+}
+
+.rk-modal-hd {
+	font-size: 36rpx;
+	font-weight: 700;
+	color: #1F2937;
+	text-align: center;
+	letter-spacing: 1rpx;
+}
+
+.rk-modal-tip {
+	margin-top: 16rpx;
+	font-size: 25rpx;
+	color: #6B7280;
+	text-align: center;
+	line-height: 1.6;
+}
+
+/* 数字输入 */
+.rk-modal-inputwrap {
+	display: flex;
+	align-items: center;
+	margin-top: 36rpx;
+	background: #F5F6F7;
+	border-radius: 16rpx;
+	padding: 0 28rpx;
+}
+
+.rk-modal-input {
+	flex: 1;
+	height: 104rpx;
+	font-size: 40rpx;
+	font-weight: 700;
+	text-align: center;
+	color: #1F2937;
+	font-variant-numeric: tabular-nums;
+}
+
+.rk-modal-unit {
+	font-size: 26rpx;
+	color: #6B7280;
+}
+
+/* ---------------- 表单字段 ---------------- */
+.rk-field {
+	display: flex;
+	align-items: center;
+	margin-top: 24rpx;
+}
+
+.rk-field .k {
+	width: 232rpx;
+	font-size: 26rpx;
+	color: #4B5563;
+	flex-shrink: 0;
+}
+
+.rk-field .v {
+	flex: 1;
+	height: 88rpx;
+	background: #F5F6F7;
+	border-radius: 12rpx;
+	padding: 0 24rpx;
+	font-size: 28rpx;
+	color: #1F2937;
+	min-width: 0;
+}
+
+/* ---------------- 按钮组 ---------------- */
+.rk-modal-btns {
+	display: flex;
+	margin-top: 40rpx;
+	padding-top: 24rpx;
+	border-top: 2rpx solid #F0F2F4;
+}
+
+.rk-modal-btn {
+	flex: 1;
+	height: 96rpx;
+	line-height: 96rpx;
+	text-align: center;
+	font-size: 32rpx;
+	font-weight: 600;
+	border-radius: 999rpx;
+	margin: 0 12rpx;
+	transition: transform 0.12s, opacity 0.12s;
+}
+
+.rk-modal-btn:active {
+	transform: scale(0.98);
+}
+
+.rk-modal-btn.cancel {
+	background: #F0F2F4;
+	color: #4B5563;
+	font-weight: 400;
+}
+
+/* 主操作：橙色 CTA，与用户端抢号按钮保持同一语义 */
+.rk-modal-btn.ok {
+	background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+	color: #fff;
+	font-weight: 700;
+	box-shadow: 0 6rpx 20rpx rgba(234, 88, 12, 0.28);
+}
+
+.rk-loading {
+	padding-top: 320rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6B7280;
+}

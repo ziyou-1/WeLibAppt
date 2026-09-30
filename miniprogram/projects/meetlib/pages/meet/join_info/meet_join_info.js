@@ -92,6 +92,10 @@ Page({
 
 	},
 
+	url: function (e) {
+		pageHelper.url(e, this);
+	},
+
 	bindCheckTap: async function (e) {
 		this.selectComponent("#form-show").checkForms();
 	},

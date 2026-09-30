@@ -1,0 +1,108 @@
+<!-- 闪抢预约页 -->
+<view class="rush-page" wx:if="{{isLoad}}">
+
+	<!-- Banner -->
+	<view class="rush-banner">
+		<image class="rush-banner-img" src="{{detail.pic || '/images/cover.gif'}}" mode="aspectFill"></image>
+	</view>
+
+	<!-- 活动信息 -->
+	<view class="rush-card">
+		<view class="rush-title">{{detail.title}}</view>
+		<view class="rush-sub" wx:if="{{detail.place}}">地点：{{detail.place}}</view>
+		<view class="rush-desc" wx:if="{{detail.desc}}">{{detail.desc}}</view>
+	</view>
+
+	<!-- 状态区 -->
+	<view class="rush-status">
+
+		<!-- 待开抢：倒计时 -->
+		<block wx:if="{{phase == 'waiting'}}">
+			<view class="rush-cd-label">距离开抢</view>
+			<view class="rush-cd-time">{{countdown}}</view>
+			<view class="rush-cd-tip">保持本页打开，到点自动开抢</view>
+
+			<view class="rush-sub-btn {{detail.subscribed?'done':''}}" bindtap="bindSubscribeTap">
+				<text class="icon-notificationfill margin-right-xxs"></text>{{detail.subscribed ? '已订阅开抢提醒' : '订阅开抢提醒'}}
+			</view>
+			<view class="rush-sub-tip" wx:if="{{!detail.subscribed}}">订阅后到点会收到微信通知，不必守着页面</view>
+		</block>
+
+		<!-- 抢号窗口 -->
+		<block wx:elif="{{phase == 'grabbing'}}">
+			<view class="rush-pulse"></view>
+			<view class="rush-cd-label">正在抢号</view>
+			<view class="rush-cd-tip">已进入抢号窗口，请勿离开本页</view>
+		</block>
+
+		<!-- 可抢 -->
+		<block wx:elif="{{phase == 'ready'}}">
+			<view class="rush-ready">可预约</view>
+			<view class="rush-cd-tip">当前剩余 {{left}} 个号</view>
+		</block>
+
+		<!-- 已抢到 -->
+		<block wx:elif="{{phase == 'done'}}">
+			<view class="rush-ready">抢号成功</view>
+			<view class="rush-cd-tip">到店出示下方购买码核销</view>
+		</block>
+
+		<!-- 已结束 -->
+		<block wx:elif="{{phase == 'over'}}">
+			<view class="rush-over">活动已结束</view>
+			<view class="rush-cd-tip">感谢参与</view>
+		</block>
+
+		<block wx:else>
+			<view class="rush-cd-tip">加载中…</view>
+		</block>
+
+	</view>
+
+	<!-- 库存条 -->
+	<view class="rush-stock-card">
+		<view class="rush-stock-row">
+			<view class="rush-stock-item">
+				<view class="rush-stock-num">{{left}}</view>
+				<view class="rush-stock-label">剩余号源</view>
+			</view>
+			<view class="rush-stock-item">
+				<view class="rush-stock-num">{{detail.total}}</view>
+				<view class="rush-stock-label">放号总量</view>
+			</view>
+			<view class="rush-stock-item">
+				<view class="rush-stock-num">{{detail.limit}}</view>
+				<view class="rush-stock-label">单人限购</view>
+			</view>
+		</view>
+	</view>
+
+	<!-- 我的预约凭证 -->
+	<view class="rush-order" wx:if="{{myOrder}}">
+		<view class="rush-order-hd">我的预约凭证</view>
+		<view class="rush-order-no">号码 {{myOrder.no}}</view>
+		<view class="rush-order-code" bindtap="onCopyCode">{{myOrder.code}}</view>
+		<view class="rush-order-tip">点击购买码可复制 · 到店出示核销</view>
+		<view class="rush-order-cancel" wx:if="{{myOrder.status==0}}" bindtap="bindCancelTap">取消预约</view>
+	</view>
+
+	<!-- 活动须知 -->
+	<view class="rush-notice" wx:if="{{detail.notice}}">
+		<view class="rush-notice-hd">活动须知</view>
+		<view class="rush-notice-bd">{{detail.notice}}</view>
+	</view>
+
+	<!-- 底部留白，避免被按钮遮挡 -->
+	<view class="rush-bottom-space"></view>
+
+	<!-- 主按钮 -->
+	<view class="rush-bar">
+		<view class="rush-btn {{btnEnable ? 'on' : 'off'}}" bindtap="onTapBtn">{{btnText}}</view>
+	</view>
+
+</view>
+
+<!-- 加载中 -->
+<view class="rush-loading" wx:else>
+	<view class="rush-loading-text">加载中…</view>
+</view>

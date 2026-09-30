@@ -3,7 +3,10 @@ const setting = require('./setting/setting.js');
 App({
 	onLaunch: function (options) {
 
-		if (!wx.cloud) {
+		if (setting.LOCAL_DEV) {
+			// 本地调试模式：所有云调用已切换到 local-dev/server.js，无需初始化微信云环境
+			console.log('[LOCAL_DEV] 云调用已切换到本地服务: ' + setting.LOCAL_DEV_URL);
+		} else if (!wx.cloud) {
 			console.error('请使用 2.2.3 或以上的基础库以使用云能力')
 		} else {
 			wx.cloud.init({

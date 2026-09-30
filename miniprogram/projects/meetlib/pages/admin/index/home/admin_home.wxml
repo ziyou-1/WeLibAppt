@@ -36,13 +36,40 @@
 		<view class="item" bindtap="url" data-url="../../meet/list/admin_meet_list"> <text class="icon-activityfill text-blue"></text> <text class="text-black">预约管理</text>
 		</view>
 
+		<view class="item" bindtap="url" data-url="../../rush/list/admin_rush_list"> <text class="icon-flashbuyfill text-orange"></text> <text class="text-black">闪抢管理</text>
+		</view>
+
+		<view class="item" bindtap="url" data-url="../../rush/checkin/admin_rush_checkin"> <text class="icon-scan text-mauve"></text> <text class="text-black">购买码核销</text>
+		</view>
+
 
 
 	</view>
 
 
 	<!-- BOTTOM begin -->
-	<view class="comm-list menu  margin-top">
+	<view class="comm-list menu margin-top">
+
+		<view class="item arrow" bindtap="url" data-url="../../rush/setting/admin_rush_setting">
+			<view class="content">
+				<text class="icon-settingsfill text-orange"></text>
+				<text class="text-black">闪抢 - 风控与订阅消息设置 </text>
+			</view>
+		</view>
+
+		<view class="item arrow" bindtap="url" data-url="../../rush/order/admin_rush_order">
+			<view class="content">
+				<text class="icon-order text-blue"></text>
+				<text class="text-black">闪抢 - 预约名单与导出 </text>
+			</view>
+		</view>
+
+		<view class="item arrow" bindtap="url" data-url="../../rush/record/admin_rush_record">
+			<view class="content">
+				<text class="icon-record text-green"></text>
+				<text class="text-black">闪抢 - 核销流水 </text>
+			</view>
+		</view>
 
 		<view class="item arrow" bindtap="url" data-url="../../setup/about_list/admin_setup_about_list">
 			<view class="content">

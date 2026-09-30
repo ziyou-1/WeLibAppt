@@ -1,0 +1,173 @@
+<!-- 闪抢活动管理 -->
+<block wx:if="{{isAdmin&&isLoad}}">
+
+	<cmpt-comm-list source='admin' type="admin-rush" search="{{search||''}}" _menus="{{sortMenus}}" _items="{{sortItems}}"
+		route="admin/rush_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索活动标题" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+			<button bindtap="bindAddTap" class="btn radius bg-admin text-white margin-right-s">
+				<text class="icon-roundadd margin-right-xxs"></text>创建活动
+			</button>
+		</view>
+
+		<!-- List Begin -->
+		<view class="admin-comm-list">
+			<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共有{{dataList.total}}条符合条件记录 </view>
+
+			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
+				<view class="no">{{index+1}}</view>
+
+				<view class="header">
+					<view class="left text-cut">{{item.RUSH_TITLE}}</view>
+					<view class="right">
+						<text wx:if="{{item.RUSH_PAUSE==1}}" class="text-orange">已暂停</text>
+					</view>
+				</view>
+
+				<view class="info">
+					<view class="info-item">
+						<view class="title">状态</view>
+						<view class="mao">：</view>
+						<view class="content">
+							<text wx:if="{{item.realStatus==0}}" class="text-grey">草稿</text>
+							<text wx:elif="{{item.realStatus==1}}" class="text-blue">待开抢</text>
+							<text wx:elif="{{item.realStatus==2}}" class="text-green">进行中</text>
+							<text wx:else class="text-red">已结束</text>
+						</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">余量</view>
+						<view class="mao">：</view>
+						<view class="content">
+							<text class="text-orange" style="font-weight:bold">{{item.left}}</text>
+							<text class="text-grey"> / {{item.RUSH_TOTAL}}（已发 {{item.RUSH_TAKEN}}）</text>
+						</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">限购</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_LIMIT}} 份/人<text wx:if="{{item.RUSH_LOCK_STOCK>0}}" class="text-orange margin-left-xxs">（锁定 {{item.RUSH_LOCK_STOCK}}）</text></view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">开抢</view>
+						<view class="mao">：</view>
+						<view class="content">{{item._startStr}}<text class="text-orange margin-left-xxs">{{item._leftStr}}</text></view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">结束</view>
+						<view class="mao">：</view>
+						<view class="content">{{item._endStr}}</view>
+					</view>
+
+					<view class="oprt">
+						<view bindtap="bindEditTap" data-id="{{item._id}}" data-title="{{item.RUSH_TITLE}}" data-limit="{{item.RUSH_LIMIT}}" class="btn margin-right-s"><text class="icon-settings margin-right-xxs text-blue"></text>编辑</view>
+						<view bindtap="bindStockTap" data-id="{{item._id}}" data-action="publish" class="btn margin-right-s">放号</view>
+						<view bindtap="bindPauseTap" data-id="{{item._id}}" data-pause="{{item.RUSH_PAUSE}}" class="btn margin-right-s">{{item.RUSH_PAUSE==1?'恢复':'暂停'}}</view>
+						<view bindtap="bindStockTap" data-id="{{item._id}}" data-action="lock" class="btn margin-right-s">锁定</view>
+						<view bindtap="bindStockTap" data-id="{{item._id}}" data-action="reduce" class="btn margin-right-s"><text class="icon-cascades margin-right-xxs text-orange"></text>扣减</view>
+						<view bindtap="url" data-url="../order/admin_rush_order?rushId={{item._id}}" class="btn margin-right-s">名单</view>
+						<view bindtap="url" data-url="../record/admin_rush_record?rushId={{item._id}}" class="btn margin-right-s">流水</view>
+						<view bindtap="bindDelTap" data-id="{{item._id}}" data-title="{{item.RUSH_TITLE}}" class="btn">关闭</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{skin:'text-grey',dataList}}" />
+		<!--load end-->
+	</cmpt-comm-list>
+
+	<!-- 库存操作弹窗 -->
+	<view class="rk-mask" wx:if="{{showStock}}" bindtap="bindStockClose"></view>
+	<view class="rk-modal" wx:if="{{showStock}}">
+		<view class="rk-modal-hd">{{stockTitle}}</view>
+		<view class="rk-modal-tip">{{stockTip}}</view>
+		<view class="rk-modal-inputwrap">
+			<input class="rk-modal-input" type="number" value="{{stockValue}}" bindinput="bindStockInput" focus="{{showStock}}" />
+			<text class="rk-modal-unit">{{stockUnit}}</text>
+		</view>
+		<view class="rk-modal-btns">
+			<view class="rk-modal-btn cancel" bindtap="bindStockClose">取消</view>
+			<view class="rk-modal-btn ok" bindtap="bindStockConfirm">确定</view>
+		</view>
+	</view>
+
+	<!-- 新建活动弹窗 -->
+	<view class="rk-mask" wx:if="{{showAdd}}" bindtap="bindAddClose"></view>
+	<view class="rk-modal" wx:if="{{showAdd}}">
+		<view class="rk-modal-hd">创建闪抢活动</view>
+		<view class="rk-modal-tip">创建后立即进入「待开抢」，并按设定时间自动流转</view>
+
+		<view class="rk-field">
+			<text class="k">活动名称</text>
+			<input class="v" data-key="addTitle" value="{{addTitle}}" bindinput="bindAddInput" placeholder="如：周末闪抢 100 份" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">几分钟后开抢</text>
+			<input class="v" type="number" data-key="addDelay" value="{{addDelay}}" bindinput="bindAddInput" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">持续时长(分钟)</text>
+			<input class="v" type="number" data-key="addDur" value="{{addDur}}" bindinput="bindAddInput" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">单人限购</text>
+			<input class="v" type="number" data-key="addLimit" value="{{addLimit}}" bindinput="bindAddInput" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">立即放号</text>
+			<input class="v" type="number" data-key="addCount" value="{{addCount}}" bindinput="bindAddInput" />
+		</view>
+
+		<view class="rk-modal-btns">
+			<view class="rk-modal-btn cancel" bindtap="bindAddClose">取消</view>
+			<view class="rk-modal-btn ok" bindtap="bindAddConfirm">创建</view>
+		</view>
+	</view>
+
+	<!-- 编辑活动弹窗 -->
+	<view class="rk-mask" wx:if="{{showEdit}}" bindtap="bindEditClose"></view>
+	<view class="rk-modal" wx:if="{{showEdit}}">
+		<view class="rk-modal-hd">编辑活动</view>
+		<view class="rk-modal-tip">开抢时间与放号量请用列表中的库存操作管理</view>
+
+		<view class="rk-field">
+			<text class="k">活动名称</text>
+			<input class="v" data-key="editTitle" value="{{editTitle}}" bindinput="bindEditInput" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">单人限购</text>
+			<input class="v" type="number" data-key="editLimit" value="{{editLimit}}" bindinput="bindEditInput" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">重设开抢(分钟)</text>
+			<input class="v" type="number" data-key="editDelay" value="{{editDelay}}" bindinput="bindEditInput" placeholder="留空表示不改动" />
+		</view>
+
+		<view class="rk-field">
+			<text class="k">持续时长(分钟)</text>
+			<input class="v" type="number" data-key="editDur" value="{{editDur}}" bindinput="bindEditInput" />
+		</view>
+
+		<view class="rk-modal-btns">
+			<view class="rk-modal-btn cancel" bindtap="bindEditClose">取消</view>
+			<view class="rk-modal-btn ok" bindtap="bindEditConfirm">保存</view>
+		</view>
+	</view>
+
+</block>
+
+<view wx:else class="rk-loading">加载中…</view>

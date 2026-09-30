@@ -1,0 +1,120 @@
+<!-- 闪抢设置：风控 / 黑名单 / 订阅消息 -->
+<block wx:if="{{isAdmin&&isLoad}}">
+
+	<view class="st-wrap">
+
+		<!-- 风控 -->
+		<view class="st-sec">
+			<view class="st-hd">风控 · 抢号节流</view>
+
+			<view class="st-row">
+				<text class="k">节流阈值</text>
+				<input class="v" type="number" value="{{throttleMs}}" bindinput="bindThrottleInput" />
+				<text class="unit">ms</text>
+				<view class="st-btn" bindtap="bindSaveThrottle">保存</view>
+			</view>
+
+			<view class="st-tip">同一账号在此间隔内的重复抢号会被拒绝；填 0 表示关闭（默认 300）</view>
+		</view>
+
+		<!-- 黑名单 -->
+		<view class="st-sec">
+			<view class="st-hd">黑名单 <text class="st-cnt">（{{blackList.length}} 条生效中）</text></view>
+
+			<view class="st-row">
+				<view class="st-type" bindtap="bindBlackTypeTap">{{blackTypeDesc}}</view>
+				<input class="v" value="{{blackValue}}" bindinput="bindBlackInput" placeholder="openid 或手机号" />
+				<view class="st-btn" bindtap="bindAddBlack">拉黑</view>
+			</view>
+
+			<view class="st-row">
+				<text class="k">原因</text>
+				<input class="v" value="{{blackReason}}" bindinput="bindBlackReasonInput" placeholder="选填，会展示给被拦截的用户" />
+			</view>
+
+			<view class="st-bl-item" wx:for="{{blackList}}" wx:key="index">
+				<text class="tag">{{item.typeDesc}}</text>
+				<text class="val">{{item.BLACK_VALUE}}</text>
+				<text class="reason" wx:if="{{item.BLACK_REASON}}">{{item.BLACK_REASON}}</text>
+				<text class="del" bindtap="bindDelBlack" data-id="{{item.id}}">解除</text>
+			</view>
+
+			<view class="st-empty" wx:if="{{blackList.length==0}}">暂无黑名单记录</view>
+		</view>
+
+		<!-- 订阅消息模板 -->
+		<view class="st-sec">
+			<view class="st-hd">订阅消息模板</view>
+
+			<view class="st-row">
+				<text class="k">开抢提醒</text>
+				<input class="v" value="{{tmplStart}}" bindinput="bindTmplInput" data-key="tmplStart" placeholder="模板ID" />
+			</view>
+
+			<view class="st-row">
+				<text class="k">预约成功</text>
+				<input class="v" value="{{tmplSuccess}}" bindinput="bindTmplInput" data-key="tmplSuccess" placeholder="模板ID" />
+			</view>
+
+			<view class="st-row">
+				<text class="k">核销成功</text>
+				<input class="v" value="{{tmplCheckin}}" bindinput="bindTmplInput" data-key="tmplCheckin" placeholder="模板ID" />
+			</view>
+
+			<view class="st-btn-block" bindtap="bindSaveTmpl">保存模板配置</view>
+
+			<view class="st-tip">模板 ID 在微信公众平台「订阅消息」中申请；微信订阅为一次性授权，用户每授权一次只能收到一条</view>
+		</view>
+
+		<!-- 放号提醒 -->
+		<view class="st-sec">
+			<view class="st-hd">放号前提醒</view>
+
+			<view class="st-row">
+				<text class="k">活动 ID</text>
+				<input class="v" value="{{remindRushId}}" bindinput="bindRemindInput" placeholder="填写活动 ID" />
+			</view>
+
+			<view class="st-btn-block warn" bindtap="bindSendRemind">向订阅者群发开抢提醒</view>
+
+			<view class="st-tip">只发送给「待发送」且仍有授权次数的订阅记录，发完即扣减</view>
+		</view>
+
+		<!-- 数据一致性 -->
+		<view class="st-sec">
+			<view class="st-hd">数据一致性</view>
+
+			<view class="st-tip">核对每个活动的「放号总量 / 已发放」与号码池、订单是否自洽</view>
+
+			<view class="st-btn-block" bindtap="bindCheckTap">执行自检</view>
+			<view class="st-btn-block warn" bindtap="bindFixTap">一键修复计数</view>
+
+			<view class="st-tip">手工清理数据后若出现「余量与实际订单对不上」，用这里校准</view>
+		</view>
+
+		<!-- 运营看板 -->
+		<view class="st-sec">
+			<view class="st-hd">运营看板</view>
+
+			<view class="st-tip">今日预约与核销、订单状态分布、活动状态、库存水位与核销率</view>
+
+			<view class="st-btn-block" bindtap="bindDashboardTap">查看实时数据</view>
+		</view>
+
+		<!-- 数据与导出 -->
+		<view class="st-sec">
+			<view class="st-hd">数据与导出</view>
+
+			<view class="st-btn-block" bindtap="bindStatsTap">查看数据量概览</view>
+			<view class="st-btn-block" bindtap="bindSubListTap">查看订阅记录</view>
+			<view class="st-btn-block" bindtap="bindBackupTap">导出数据快照 (JSON)</view>
+			<view class="st-btn-block warn" bindtap="bindCleanExportTap">清理已生成的导出文件</view>
+
+			<view class="st-tip">导出文件会累积占用云存储，建议定期清理</view>
+		</view>
+
+	</view>
+
+</block>
+
+<view wx:else class="st-loading">加载中…</view>

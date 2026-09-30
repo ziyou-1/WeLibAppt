@@ -41,8 +41,8 @@
 		"ignoreUploadUnusedFiles": true,
 		"useStaticServer": true
 	},
-	"appid": "wxb100b44af794708e",
-	"projectname": "Multi多功能平台",
+	"appid": "wx69974a62c576b434",
+	"projectname": "WeLibAppt",
 	"libVersion": "2.17.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

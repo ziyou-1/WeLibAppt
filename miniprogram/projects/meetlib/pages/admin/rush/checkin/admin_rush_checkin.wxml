@@ -1,0 +1,58 @@
+<!-- 闪抢核销页 -->
+<block wx:if="{{isAdmin&&isLoad}}">
+
+	<view class="ci-wrap">
+
+		<!-- 输入区 -->
+		<view class="ci-card">
+			<view class="ci-hd">购买码核销</view>
+
+			<view class="ci-input-row">
+				<input class="ci-input" value="{{code}}" placeholder="输入或扫描购买码" placeholder-class="ci-ph"
+					bindinput="bindCodeInput" confirm-type="done" bindconfirm="bindCheckinTap" />
+				<view class="ci-scan" bindtap="bindScanTap">
+					<text class="icon-scan"></text>
+				</view>
+			</view>
+
+			<button class="btn radius bg-admin text-white ci-btn" bindtap="bindCheckinTap">确认核销</button>
+
+			<view class="ci-tip">同一个购买码只能核销一次，重复核销会被拦截</view>
+		</view>
+
+		<!-- 核销结果 -->
+		<view class="ci-result" wx:if="{{result}}">
+			<view class="ci-result-hd">
+				<text class="icon-roundcheckfill margin-right-xxs"></text>核销成功
+			</view>
+			<view class="ci-row"><text class="k">号码</text><text class="v strong">{{result.no}}</text></view>
+			<view class="ci-row"><text class="k">购买码</text><text class="v">{{result.code}}</text></view>
+			<view class="ci-row" wx:if="{{result.name}}"><text class="k">姓名</text><text class="v">{{result.name}}</text></view>
+			<view class="ci-row" wx:if="{{result.phone}}"><text class="k">手机</text><text class="v">{{result.phone}}</text></view>
+		</view>
+
+		<!-- 最近核销 -->
+		<view class="ci-recent" wx:if="{{recent.length>0}}">
+			<view class="ci-recent-hd">
+				<text>最近核销</text>
+				<text class="more" bindtap="bindMoreTap">全部流水 ›</text>
+			</view>
+
+			<view class="ci-recent-item" wx:for="{{recent}}" wx:key="index">
+				<view class="line1">
+					<text class="tag {{item.CHECKIN_TYPE==2?'revert':''}}">{{item.typeDesc}}</text>
+					<text class="code">{{item.CHECKIN_CODE}}</text>
+					<text class="no">#{{item.CHECKIN_NO}}</text>
+				</view>
+				<view class="line2">
+					<text>{{item.CHECKIN_NAME||'—'}}</text>
+					<text class="op">{{item.CHECKIN_ADMIN_NAME||'—'}}</text>
+				</view>
+			</view>
+		</view>
+
+	</view>
+
+</block>
+
+<view wx:else class="ci-loading">加载中…</view>

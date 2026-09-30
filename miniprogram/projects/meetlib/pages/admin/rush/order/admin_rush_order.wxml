@@ -1,0 +1,86 @@
+<!-- 闪抢预约名单 -->
+<block wx:if="{{isAdmin&&isLoad}}">
+
+	<cmpt-comm-list id="commList" source='admin' type="admin-rush-order" search="{{search||''}}" _menus="{{sortMenus}}" _items="{{sortItems}}"
+		route="admin/rush_order_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索手机号 / 购买码 / 姓名" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+			<button bindtap="bindExportTap" class="btn radius bg-admin text-white margin-right-s">导出 Excel</button>
+		</view>
+
+		<!-- List Begin -->
+		<view class="admin-comm-list">
+			<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共 {{dataList.total}} 条记录</view>
+
+			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
+				<view class="no">{{item.RUSH_ORDER_NO}}</view>
+
+				<view class="header">
+					<view class="left text-cut">
+						<text class="ro-code">{{item.RUSH_ORDER_CODE}}</text>
+					</view>
+					<view class="right">
+						<text wx:if="{{item.RUSH_ORDER_STATUS==0}}" class="text-blue">{{item.statusDesc}}</text>
+						<text wx:elif="{{item.RUSH_ORDER_STATUS==1}}" class="text-green">{{item.statusDesc}}</text>
+						<text wx:else class="text-grey">{{item.statusDesc}}</text>
+					</view>
+				</view>
+
+				<view class="info">
+					<view class="info-item">
+						<view class="title">姓名</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_ORDER_NAME||'—'}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">昵称</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_ORDER_NICK||'—'}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">手机号</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_ORDER_PHONE||'—'}}</view>
+					</view>
+
+					<view class="info-item" wx:if="{{item.RUSH_ORDER_SESSION}}">
+						<view class="title">时段</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_ORDER_SESSION}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">openid</view>
+						<view class="mao">：</view>
+						<view class="content ro-oid">{{item.RUSH_ORDER_USER_ID}}</view>
+					</view>
+
+					<view class="info-item" wx:if="{{item.RUSH_ORDER_STATUS==1}}">
+						<view class="title">核销</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.RUSH_ORDER_CHECKIN_ADMIN||'—'}}</view>
+					</view>
+
+					<view class="oprt" wx:if="{{item.RUSH_ORDER_STATUS==1}}">
+						<view bindtap="bindRevertTap" data-id="{{item._id}}" class="btn margin-right-s"><text class="icon-cascades margin-right-xxs text-orange"></text>撤销核销</view>
+					</view>
+
+					<view class="oprt" wx:if="{{item.RUSH_ORDER_STATUS!=2}}">
+						<view bindtap="bindCancelOrderTap" data-id="{{item._id}}" data-no="{{item.RUSH_ORDER_NO}}" class="btn"><text class="icon-delete margin-right-xxs text-red"></text>取消预约并回收号码</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{skin:'text-grey',dataList}}" />
+		<!--load end-->
+	</cmpt-comm-list>
+
+</block>
+
+<view wx:else class="ro-loading">加载中…</view>

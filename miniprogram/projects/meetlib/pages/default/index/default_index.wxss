@@ -83,3 +83,18 @@ page {
 	font-size: 32rpx;
 	font-weight: bold;
 }
+
+/* 限时闪抢：独立配色，突出时效性（覆盖 nth-child 的循环配色） */
+.box .inner .item.flash {
+	border-color: #E8622C;
+	background-image: linear-gradient(180deg, #E8622C, #f07f4d, #f79d73);
+}
+
+.box .inner .item.flash .ix {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.25);
+}
+
+.box .inner .item.flash .title {
+	color: #fff;
+}

@@ -1,0 +1,242 @@
+/* ============================================================
+ * 闪抢核销页（核销员日常高频使用）
+ * 效率优先：大输入区、明确动作按钮、结果即时可读
+ * 引入 admin.wxss 以获得 .btn / .radius / .bg-admin 等项目通用类
+ * ============================================================ */
+
+@import '../../../../../../style/public/admin.wxss';
+
+page {
+	background: #F3F5F7;
+}
+
+.ci-wrap {
+	padding: 24rpx;
+}
+
+/* ---------------- 输入卡片 ---------------- */
+.ci-card {
+	background: #fff;
+	border-radius: 24rpx;
+	padding: 36rpx 32rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.ci-hd {
+	font-size: 32rpx;
+	font-weight: 700;
+	color: #1F2937;
+	padding-left: 20rpx;
+	border-left: 8rpx solid #16475A;
+	line-height: 1;
+}
+
+.ci-input-row {
+	display: flex;
+	align-items: center;
+	margin-top: 36rpx;
+	background: #F5F6F7;
+	border-radius: 16rpx;
+	padding: 0 24rpx;
+	border: 2rpx solid transparent;
+	transition: border-color 0.15s;
+}
+
+.ci-input-row:focus-within {
+	border-color: #16475A;
+	background: #fff;
+}
+
+.ci-input {
+	flex: 1;
+	height: 104rpx;
+	font-size: 38rpx;
+	font-weight: 600;
+	letter-spacing: 3rpx;
+	font-family: "SF Mono", Menlo, Consolas, monospace;
+	color: #1F2937;
+}
+
+.ci-ph {
+	color: #9CA3AF;
+	font-size: 28rpx;
+	letter-spacing: 0;
+	font-family: inherit;
+	font-weight: 400;
+}
+
+.ci-scan {
+	width: 96rpx;
+	height: 96rpx;
+	line-height: 96rpx;
+	text-align: center;
+	font-size: 48rpx;
+	color: #16475A;
+}
+
+.ci-scan:active {
+	opacity: 0.6;
+}
+
+/* 核销动作：橙色 CTA */
+.ci-btn {
+	margin-top: 36rpx;
+	height: 96rpx;
+	line-height: 96rpx;
+	font-size: 34rpx;
+	font-weight: 700;
+	letter-spacing: 2rpx;
+	background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+	color: #fff;
+	border-radius: 999rpx;
+	box-shadow: 0 8rpx 24rpx rgba(234, 88, 12, 0.32);
+	border: none;
+	transition: transform 0.12s;
+}
+
+.ci-btn:active {
+	transform: scale(0.98);
+}
+
+.ci-tip {
+	margin-top: 24rpx;
+	font-size: 24rpx;
+	color: #6B7280;
+	text-align: center;
+	line-height: 1.5;
+}
+
+/* ---------------- 核销结果 ---------------- */
+.ci-result {
+	margin-top: 24rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	padding: 36rpx 32rpx;
+	box-shadow: 0 8rpx 32rpx rgba(7, 193, 96, 0.14);
+	border-top: 8rpx solid #07C160;
+}
+
+.ci-result-hd {
+	font-size: 34rpx;
+	font-weight: 700;
+	color: #059669;
+	margin-bottom: 28rpx;
+}
+
+.ci-row {
+	display: flex;
+	padding: 14rpx 0;
+	font-size: 28rpx;
+}
+
+.ci-row .k {
+	width: 152rpx;
+	color: #6B7280;
+	flex-shrink: 0;
+}
+
+.ci-row .v {
+	flex: 1;
+	color: #1F2937;
+	word-break: break-all;
+}
+
+.ci-row .v.strong {
+	font-weight: 700;
+	font-size: 36rpx;
+	color: #16475A;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- 最近核销 ---------------- */
+.ci-recent {
+	margin-top: 24rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	padding: 28rpx 32rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.ci-recent-hd {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 28rpx;
+	font-weight: 700;
+	color: #1F2937;
+	padding-bottom: 20rpx;
+	border-bottom: 2rpx solid #F0F2F4;
+}
+
+.ci-recent-hd .more {
+	font-size: 25rpx;
+	font-weight: 400;
+	color: #6B7280;
+	padding: 8rpx 0;
+}
+
+.ci-recent-hd .more:active {
+	opacity: 0.6;
+}
+
+.ci-recent-item {
+	padding: 24rpx 0;
+	border-bottom: 2rpx solid #F7F8F9;
+}
+
+.ci-recent-item:last-child {
+	border-bottom: none;
+	padding-bottom: 4rpx;
+}
+
+.ci-recent-item .line1 {
+	display: flex;
+	align-items: center;
+	font-size: 28rpx;
+}
+
+.ci-recent-item .tag {
+	font-size: 22rpx;
+	font-weight: 600;
+	color: #059669;
+	background: #E7F8EF;
+	border-radius: 8rpx;
+	padding: 4rpx 14rpx;
+	margin-right: 16rpx;
+	flex-shrink: 0;
+}
+
+.ci-recent-item .tag.revert {
+	color: #C2410C;
+	background: #FFF3E9;
+}
+
+.ci-recent-item .code {
+	flex: 1;
+	font-family: "SF Mono", Menlo, Consolas, monospace;
+	color: #1F2937;
+	font-weight: 600;
+	letter-spacing: 1rpx;
+}
+
+.ci-recent-item .no {
+	color: #6B7280;
+	font-size: 25rpx;
+	font-variant-numeric: tabular-nums;
+}
+
+.ci-recent-item .line2 {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10rpx;
+	font-size: 25rpx;
+	color: #6B7280;
+}
+
+/* ---------------- 加载态 ---------------- */
+.ci-loading {
+	padding-top: 320rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6B7280;
+}

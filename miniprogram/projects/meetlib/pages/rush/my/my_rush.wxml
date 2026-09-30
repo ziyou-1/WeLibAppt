@@ -1,0 +1,60 @@
+<!-- 我的闪抢预约 -->
+<view class="my-wrap">
+
+	<block wx:if="{{isLoad}}">
+
+		<view class="my-card" wx:for="{{list}}" wx:key="index" bindtap="bindItemTap" data-id="{{item.RUSH_ID}}">
+
+			<view class="my-hd">
+				<text class="title text-cut">{{item.rushTitle}}</text>
+				<text class="status s{{item.RUSH_ORDER_STATUS}}">{{item.statusDesc}}</text>
+			</view>
+
+			<view class="my-code">
+				<text class="label">购买码</text>
+				<text class="val">{{item.RUSH_ORDER_CODE}}</text>
+				<text class="copy" catchtap="bindCopyTap" data-code="{{item.RUSH_ORDER_CODE}}">复制</text>
+			</view>
+
+			<view class="my-body">
+				<view class="my-row">
+					<text class="k">号码</text>
+					<text class="v strong">#{{item.RUSH_ORDER_NO}}</text>
+				</view>
+
+				<view class="my-row" wx:if="{{item.RUSH_ORDER_SESSION}}">
+					<text class="k">时段</text>
+					<text class="v">{{item.RUSH_ORDER_SESSION}}</text>
+				</view>
+
+				<view class="my-row" wx:if="{{item.rushPlace}}">
+					<text class="k">地点</text>
+					<text class="v">{{item.rushPlace}}</text>
+				</view>
+
+				<view class="my-row" wx:if="{{item.timeText}}">
+					<text class="k">预约时间</text>
+					<text class="v">{{item.timeText}}</text>
+				</view>
+			</view>
+
+			<view class="my-foot">
+				<text class="tip">到店出示购买码核销</text>
+				<view class="right">
+					<text class="cancel" wx:if="{{item.RUSH_ORDER_STATUS==0}}" catchtap="bindCancelTap" data-orderid="{{item.orderId}}">取消预约</text>
+					<text class="more">查看活动 ›</text>
+				</view>
+			</view>
+
+		</view>
+
+		<view class="my-empty" wx:if="{{list.length==0}}">
+			<view class="txt">还没有闪抢记录</view>
+			<view class="sub">去首页看看有什么活动</view>
+		</view>
+
+	</block>
+
+	<view class="my-loading" wx:else>加载中…</view>
+
+</view>

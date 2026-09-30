@@ -1,0 +1,353 @@
+/* ============================================================
+ * 闪抢预约页
+ *
+ * 设计依据（ui-ux-pro-max / Minimalism & Swiss Style）：
+ *   品牌色  #16475A   项目主色，保持与既有页面一致
+ *   CTA 橙  #EA580C   抢购动作专用，制造紧迫感
+ *   成功绿  #07C160   抢号成功
+ *   文本    #1F2937 / #4B5563 / #6B7280 / #9CA3AF（全部 >= 4.5:1，末位仅用于装饰）
+ *   间距    24/32/40/48rpx（8rpx 节奏）
+ *   圆角    16rpx 卡片 / 12rpx 控件 / 999rpx 胶囊
+ * ============================================================ */
+
+page {
+	background: #F3F5F7;
+}
+
+.rush-page {
+	min-height: 100vh;
+	padding-bottom: 180rpx;
+}
+
+/* ---------------- Banner ---------------- */
+.rush-banner {
+	width: 100%;
+	height: 360rpx;
+	background: linear-gradient(160deg, #16475A 0%, #1F6B86 100%);
+	overflow: hidden;
+}
+
+.rush-banner-img {
+	width: 100%;
+	height: 360rpx;
+	display: block;
+}
+
+/* ---------------- 活动信息 ---------------- */
+.rush-card {
+	margin: -64rpx 24rpx 24rpx;
+	padding: 40rpx 32rpx 32rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.10);
+	position: relative;
+}
+
+.rush-title {
+	font-size: 40rpx;
+	font-weight: 700;
+	color: #1F2937;
+	line-height: 1.35;
+	letter-spacing: 0.5rpx;
+}
+
+.rush-sub {
+	margin-top: 16rpx;
+	font-size: 26rpx;
+	color: #6B7280;
+}
+
+.rush-desc {
+	margin-top: 20rpx;
+	font-size: 27rpx;
+	color: #4B5563;
+	line-height: 1.65;
+}
+
+/* ---------------- 状态区 ---------------- */
+.rush-status {
+	margin: 24rpx;
+	padding: 48rpx 24rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	text-align: center;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.rush-cd-label {
+	font-size: 28rpx;
+	color: #6B7280;
+	letter-spacing: 2rpx;
+}
+
+.rush-cd-time {
+	margin-top: 20rpx;
+	font-size: 96rpx;
+	font-weight: 700;
+	color: #16475A;
+	letter-spacing: 6rpx;
+	/* 等宽数字：秒数跳动时宽度不变，避免整行抖动 */
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
+	line-height: 1.1;
+}
+
+.rush-ready {
+	font-size: 64rpx;
+	font-weight: 700;
+	color: #07C160;
+	letter-spacing: 6rpx;
+}
+
+.rush-over {
+	font-size: 48rpx;
+	font-weight: 700;
+	color: #6B7280;
+}
+
+.rush-cd-tip {
+	margin-top: 24rpx;
+	font-size: 26rpx;
+	color: #6B7280;
+	line-height: 1.5;
+}
+
+/* 抢号中的呼吸动效（仅装饰，不承载信息） */
+.rush-pulse {
+	width: 72rpx;
+	height: 72rpx;
+	margin: 0 auto 24rpx;
+	border-radius: 50%;
+	background: #16475A;
+	animation: rush-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes rush-pulse {
+
+	0%,
+	100% {
+		transform: scale(0.72);
+		opacity: 0.45;
+	}
+
+	50% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* ---------------- 订阅提醒 ---------------- */
+.rush-sub-btn {
+	display: inline-block;
+	margin-top: 36rpx;
+	padding: 0 48rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 999rpx;
+	background: #EAF1F4;
+	color: #16475A;
+	font-size: 28rpx;
+	font-weight: 600;
+	transition: opacity 0.15s;
+}
+
+.rush-sub-btn:active {
+	opacity: 0.7;
+}
+
+.rush-sub-btn.done {
+	background: #F0F2F4;
+	color: #6B7280;
+	font-weight: 400;
+}
+
+.rush-sub-tip {
+	margin-top: 16rpx;
+	font-size: 24rpx;
+	color: #9CA3AF;
+}
+
+/* ---------------- 库存卡片 ---------------- */
+.rush-stock-card {
+	margin: 24rpx;
+	padding: 36rpx 0;
+	background: #fff;
+	border-radius: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.rush-stock-row {
+	display: flex;
+	justify-content: space-around;
+}
+
+.rush-stock-item {
+	text-align: center;
+	flex: 1;
+	position: relative;
+}
+
+.rush-stock-item:not(:last-child)::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1rpx;
+	height: 56rpx;
+	background: #EDF0F2;
+}
+
+.rush-stock-num {
+	font-size: 52rpx;
+	font-weight: 700;
+	color: #16475A;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+
+.rush-stock-label {
+	margin-top: 12rpx;
+	font-size: 24rpx;
+	color: #6B7280;
+}
+
+/* ---------------- 我的凭证 ---------------- */
+.rush-order {
+	margin: 24rpx;
+	padding: 40rpx 32rpx;
+	background: linear-gradient(135deg, #16475A 0%, #1F6B86 100%);
+	border-radius: 24rpx;
+	color: #fff;
+	text-align: center;
+	box-shadow: 0 12rpx 36rpx rgba(22, 71, 90, 0.28);
+}
+
+.rush-order-hd {
+	font-size: 26rpx;
+	color: rgba(255, 255, 255, 0.82);
+	letter-spacing: 2rpx;
+}
+
+.rush-order-no {
+	margin-top: 20rpx;
+	font-size: 32rpx;
+	font-weight: 600;
+}
+
+.rush-order-code {
+	margin-top: 24rpx;
+	font-size: 58rpx;
+	font-weight: 700;
+	letter-spacing: 8rpx;
+	font-family: "SF Mono", Menlo, Consolas, monospace;
+	line-height: 1.2;
+}
+
+.rush-order-code:active {
+	opacity: 0.7;
+}
+
+.rush-order-tip {
+	margin-top: 20rpx;
+	font-size: 24rpx;
+	color: rgba(255, 255, 255, 0.78);
+}
+
+.rush-order-cancel {
+	display: inline-block;
+	margin-top: 32rpx;
+	padding: 0 44rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	border-radius: 999rpx;
+	font-size: 28rpx;
+	color: #fff;
+	border: 2rpx solid rgba(255, 255, 255, 0.45);
+	transition: background 0.15s;
+}
+
+.rush-order-cancel:active {
+	background: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------------- 活动须知 ---------------- */
+.rush-notice {
+	margin: 24rpx;
+	padding: 36rpx 32rpx;
+	background: #fff;
+	border-radius: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.rush-notice-hd {
+	font-size: 30rpx;
+	font-weight: 700;
+	color: #1F2937;
+	padding-left: 20rpx;
+	border-left: 8rpx solid #16475A;
+	line-height: 1;
+}
+
+.rush-notice-bd {
+	margin-top: 24rpx;
+	font-size: 27rpx;
+	color: #4B5563;
+	line-height: 1.8;
+	white-space: pre-wrap;
+}
+
+/* ---------------- 底部按钮 ---------------- */
+.rush-bottom-space {
+	height: 24rpx;
+}
+
+.rush-bar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 20rpx 24rpx calc(20rpx + env(safe-area-inset-bottom));
+	background: rgba(255, 255, 255, 0.96);
+	box-shadow: 0 -6rpx 24rpx rgba(22, 71, 90, 0.08);
+}
+
+.rush-btn {
+	height: 96rpx;
+	line-height: 96rpx;
+	text-align: center;
+	border-radius: 999rpx;
+	font-size: 34rpx;
+	font-weight: 700;
+	letter-spacing: 2rpx;
+	transition: transform 0.12s, opacity 0.12s;
+}
+
+/* 可抢：橙色 CTA，带投影制造「可以点」的暗示 */
+.rush-btn.on {
+	background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+	color: #fff;
+	box-shadow: 0 8rpx 24rpx rgba(234, 88, 12, 0.36);
+}
+
+.rush-btn.on:active {
+	transform: scale(0.98);
+	box-shadow: 0 4rpx 12rpx rgba(234, 88, 12, 0.3);
+}
+
+/* 不可抢：降低对比但保持文字可读（禁用态仍读得清） */
+.rush-btn.off {
+	background: #EDF0F2;
+	color: #6B7280;
+}
+
+/* ---------------- 加载态 ---------------- */
+.rush-loading {
+	padding-top: 320rpx;
+	text-align: center;
+}
+
+.rush-loading-text {
+	font-size: 28rpx;
+	color: #6B7280;
+}

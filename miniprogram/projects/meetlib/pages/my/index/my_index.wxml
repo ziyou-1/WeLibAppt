@@ -38,6 +38,13 @@
 				<text class="text-black">我的所有预约</text>
 			</view>
 		</view>
+
+		<view class="item arrow" bindtap="url" data-url="../../rush/my/my_rush">
+			<view class="content">
+				<text class="icon-flashbuyfill my-icon-project text-orange"></text>
+				<text class="text-black">我的闪抢预约与购买码</text>
+			</view>
+		</view>
 	 
 	 
 	 

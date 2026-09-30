@@ -1,0 +1,80 @@
+/* ============================================================
+ * 闪抢核销流水
+ * 必须 import admin.wxss，否则 .admin-comm-list 的横向布局不生效
+ * ============================================================ */
+
+@import '../../../../../../style/public/admin.wxss';
+@import '../../../../../../style/project/admin_list_style.wxss';
+
+page {
+	background-color: #F3F5F7;
+}
+
+.admin-comm-list .item {
+	border: none;
+	border-radius: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+	margin-bottom: 24rpx;
+}
+
+.admin-comm-list .item .header {
+	background: #fff;
+	border-bottom: 2rpx solid #F0F2F4;
+	padding: 0 24rpx;
+	line-height: 2.4;
+}
+
+.admin-comm-list .item .header .left {
+	font-size: 32rpx;
+	font-weight: 700;
+	color: #1F2937;
+}
+
+.admin-comm-list .item .no {
+	color: #16475A;
+	opacity: 0.10;
+	font-size: 48rpx;
+	right: 20rpx;
+	bottom: 12rpx;
+}
+
+.admin-comm-list .item .info {
+	padding: 24rpx;
+	min-height: 0;
+}
+
+.admin-comm-list .item .info .info-item {
+	margin-bottom: 14rpx;
+	font-size: 27rpx;
+}
+
+.admin-comm-list .item .info .info-item .title {
+	width: 120rpx;
+	color: #6B7280;
+	font-weight: 400;
+	text-align: left;
+}
+
+.admin-comm-list .item .info .info-item .mao {
+	color: #9CA3AF;
+	margin-right: 8rpx;
+}
+
+.admin-comm-list .item .info .info-item .content {
+	color: #1F2937;
+}
+
+.rr-code {
+	font-family: monospace;
+	font-size: 32rpx;
+	font-weight: bold;
+	color: #16475A;
+	letter-spacing: 2rpx;
+}
+
+.rr-loading {
+	padding-top: 300rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6B7280;
+}

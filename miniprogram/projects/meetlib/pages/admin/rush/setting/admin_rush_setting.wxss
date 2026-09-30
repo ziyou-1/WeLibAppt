@@ -1,0 +1,210 @@
+/* ============================================================
+ * 闪抢设置页
+ * 分组卡片 + 一致的表单节奏
+ * 引入 admin.wxss 以获得项目通用按钮类
+ * ============================================================ */
+
+@import '../../../../../../style/public/admin.wxss';
+
+page {
+	background: #F3F5F7;
+}
+
+.st-wrap {
+	padding: 24rpx;
+}
+
+.st-sec {
+	background: #fff;
+	border-radius: 24rpx;
+	padding: 36rpx 32rpx;
+	margin-bottom: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+}
+
+.st-hd {
+	font-size: 32rpx;
+	font-weight: 700;
+	color: #1F2937;
+	padding-left: 20rpx;
+	border-left: 8rpx solid #16475A;
+	line-height: 1;
+}
+
+.st-cnt {
+	font-size: 24rpx;
+	font-weight: 400;
+	color: #6B7280;
+}
+
+/* ---------------- 表单行 ---------------- */
+.st-row {
+	display: flex;
+	align-items: center;
+	margin-top: 28rpx;
+}
+
+.st-row .k {
+	width: 176rpx;
+	font-size: 27rpx;
+	color: #4B5563;
+	flex-shrink: 0;
+}
+
+.st-row .v {
+	flex: 1;
+	height: 88rpx;
+	background: #F5F6F7;
+	border-radius: 12rpx;
+	padding: 0 24rpx;
+	font-size: 28rpx;
+	color: #1F2937;
+	min-width: 0;
+}
+
+.st-row .unit {
+	margin-left: 12rpx;
+	font-size: 25rpx;
+	color: #6B7280;
+}
+
+/* 类型切换（openid / 手机号） */
+.st-type {
+	min-width: 160rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	text-align: center;
+	background: #16475A;
+	color: #fff;
+	border-radius: 12rpx;
+	font-size: 25rpx;
+	font-weight: 600;
+	margin-right: 16rpx;
+	flex-shrink: 0;
+	padding: 0 20rpx;
+	transition: opacity 0.15s;
+}
+
+.st-type:active {
+	opacity: 0.75;
+}
+
+/* 行内小按钮 */
+.st-btn {
+	min-width: 128rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	text-align: center;
+	background: #16475A;
+	color: #fff;
+	border-radius: 12rpx;
+	font-size: 27rpx;
+	font-weight: 600;
+	margin-left: 16rpx;
+	flex-shrink: 0;
+	padding: 0 20rpx;
+	transition: opacity 0.15s;
+}
+
+.st-btn:active {
+	opacity: 0.75;
+}
+
+/* 通栏按钮 */
+.st-btn-block {
+	margin-top: 32rpx;
+	height: 96rpx;
+	line-height: 96rpx;
+	text-align: center;
+	background: #16475A;
+	color: #fff;
+	border-radius: 999rpx;
+	font-size: 31rpx;
+	font-weight: 700;
+	letter-spacing: 1rpx;
+	transition: transform 0.12s;
+}
+
+.st-btn-block:active {
+	transform: scale(0.985);
+}
+
+/* 需谨慎的操作：橙色 */
+.st-btn-block.warn {
+	background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+	box-shadow: 0 6rpx 20rpx rgba(234, 88, 12, 0.26);
+}
+
+.st-tip {
+	margin-top: 20rpx;
+	font-size: 24rpx;
+	color: #6B7280;
+	line-height: 1.65;
+}
+
+/* ---------------- 黑名单 ---------------- */
+.st-bl-item {
+	display: flex;
+	align-items: center;
+	margin-top: 24rpx;
+	padding: 20rpx 0;
+	border-bottom: 2rpx solid #F7F8F9;
+	font-size: 26rpx;
+}
+
+.st-bl-item:last-child {
+	border-bottom: none;
+}
+
+.st-bl-item .tag {
+	font-size: 22rpx;
+	font-weight: 600;
+	color: #16475A;
+	background: #EAF1F4;
+	border-radius: 8rpx;
+	padding: 4rpx 14rpx;
+	margin-right: 16rpx;
+	flex-shrink: 0;
+}
+
+.st-bl-item .val {
+	flex: 1;
+	color: #1F2937;
+	word-break: break-all;
+	font-size: 25rpx;
+	font-family: "SF Mono", Menlo, Consolas, monospace;
+}
+
+.st-bl-item .reason {
+	font-size: 23rpx;
+	color: #6B7280;
+	margin-left: 12rpx;
+	flex-shrink: 0;
+}
+
+.st-bl-item .del {
+	margin-left: 24rpx;
+	font-size: 26rpx;
+	font-weight: 600;
+	color: #DC2626;
+	flex-shrink: 0;
+	padding: 12rpx 0;
+}
+
+.st-bl-item .del:active {
+	opacity: 0.6;
+}
+
+.st-empty {
+	margin-top: 28rpx;
+	font-size: 26rpx;
+	color: #9CA3AF;
+	text-align: center;
+}
+
+.st-loading {
+	padding-top: 320rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6B7280;
+}

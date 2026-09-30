@@ -19,7 +19,8 @@ class BaseProjectService extends BaseService {
 	 
 		let F = (c) => 'bx_' + c;
 		const INSTALL_CL = 'setup_meetlib';
-		const COLLECTIONS = ['setup', 'admin', 'log', 'day', 'join', 'meet', 'news', 'fav', 'user', 'temp'];
+		const COLLECTIONS = ['setup', 'admin', 'log', 'day', 'join', 'meet', 'news', 'fav', 'user', 'temp',
+			'rush', 'rush_code', 'rush_order', 'rush_checkin', 'rush_black', 'rush_subscribe'];
 		const CONST_PIC = '/images/cover.gif';
 
 		const NEWS_CATE = '1=公告';

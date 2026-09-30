@@ -1,0 +1,215 @@
+/* ============================================================
+ * 闪抢活动列表（用户端）
+ * 设计 token 同 rush_detail：品牌 #16475A / CTA #EA580C
+ * ============================================================ */
+
+page {
+	background: #F3F5F7;
+}
+
+.ri-wrap {
+	padding: 24rpx;
+}
+
+.ri-card {
+	background: #fff;
+	border-radius: 24rpx;
+	overflow: hidden;
+	margin-bottom: 24rpx;
+	box-shadow: 0 8rpx 32rpx rgba(22, 71, 90, 0.08);
+	transition: transform 0.12s;
+}
+
+.ri-card:active {
+	transform: scale(0.985);
+}
+
+/* ---------------- Banner ---------------- */
+.ri-banner {
+	position: relative;
+	height: 260rpx;
+	background: linear-gradient(160deg, #16475A 0%, #1F6B86 100%);
+}
+
+.ri-img {
+	width: 100%;
+	height: 260rpx;
+	display: block;
+}
+
+.ri-tag {
+	position: absolute;
+	left: 24rpx;
+	top: 24rpx;
+	font-size: 24rpx;
+	font-weight: 600;
+	color: #fff;
+	padding: 8rpx 24rpx;
+	border-radius: 999rpx;
+	background: rgba(31, 41, 55, 0.72);
+	letter-spacing: 1rpx;
+}
+
+.ri-tag.wait {
+	background: rgba(22, 71, 90, 0.92);
+}
+
+.ri-tag.run {
+	background: #07C160;
+}
+
+.ri-tag.pause {
+	background: #EA580C;
+}
+
+.ri-tag.over {
+	background: rgba(31, 41, 55, 0.6);
+}
+
+.ri-soldout {
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	font-size: 24rpx;
+	color: #fff;
+	background: rgba(31, 41, 55, 0.72);
+	padding: 8rpx 24rpx;
+	border-radius: 999rpx;
+}
+
+/* ---------------- 主体 ---------------- */
+.ri-body {
+	padding: 28rpx 32rpx 32rpx;
+}
+
+.ri-title {
+	font-size: 36rpx;
+	font-weight: 700;
+	color: #1F2937;
+	line-height: 1.4;
+}
+
+.ri-desc {
+	margin-top: 12rpx;
+	font-size: 27rpx;
+	color: #6B7280;
+	line-height: 1.55;
+}
+
+.ri-line {
+	display: flex;
+	margin-top: 16rpx;
+	font-size: 27rpx;
+}
+
+.ri-line .k {
+	width: 96rpx;
+	color: #6B7280;
+	flex-shrink: 0;
+}
+
+.ri-line .v {
+	flex: 1;
+	color: #4B5563;
+}
+
+.ri-line .v.run {
+	color: #07C160;
+	font-weight: 600;
+}
+
+.ri-line .v.wait {
+	color: #16475A;
+	font-weight: 600;
+}
+
+.ri-line .v.pause {
+	color: #EA580C;
+	font-weight: 600;
+}
+
+/* ---------------- 底部：库存 + 行动 ---------------- */
+.ri-foot {
+	display: flex;
+	align-items: center;
+	margin-top: 28rpx;
+	padding-top: 24rpx;
+	border-top: 2rpx solid #F0F2F4;
+}
+
+.ri-stock {
+	display: flex;
+	align-items: baseline;
+}
+
+.ri-stock .num {
+	font-size: 44rpx;
+	font-weight: 700;
+	color: #16475A;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+
+.ri-stock .lab {
+	font-size: 24rpx;
+	color: #6B7280;
+	margin-left: 8rpx;
+}
+
+.ri-limit {
+	flex: 1;
+	text-align: right;
+	font-size: 24rpx;
+	color: #9CA3AF;
+}
+
+.ri-btn {
+	margin-left: 24rpx;
+	min-width: 176rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	text-align: center;
+	border-radius: 999rpx;
+	font-size: 28rpx;
+	font-weight: 600;
+	background: #EDF0F2;
+	color: #6B7280;
+	padding: 0 32rpx;
+	transition: transform 0.12s;
+}
+
+/* 可抢：橙色 CTA */
+.ri-btn.on {
+	background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+	color: #fff;
+	font-weight: 700;
+	box-shadow: 0 6rpx 20rpx rgba(234, 88, 12, 0.32);
+}
+
+.ri-btn.on:active {
+	transform: scale(0.97);
+}
+
+/* ---------------- 空态 ---------------- */
+.ri-empty {
+	padding-top: 220rpx;
+	text-align: center;
+}
+
+.ri-empty .txt {
+	font-size: 30rpx;
+	color: #6B7280;
+}
+
+.ri-empty .sub {
+	margin-top: 16rpx;
+	font-size: 25rpx;
+	color: #9CA3AF;
+}
+
+.ri-loading {
+	padding-top: 320rpx;
+	text-align: center;
+	font-size: 28rpx;
+	color: #6B7280;
+}

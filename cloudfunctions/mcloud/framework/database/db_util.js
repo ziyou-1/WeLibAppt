@@ -23,16 +23,47 @@ function getCmd() {
 }
 
 
+/**
+ * 批量插入
+ *
+ * 注意：微信云开发的 collection.add() 只接受单条记录对象，
+ * 不支持传入数组。spArr 切出来的每一批是数组，必须逐条写入。
+ * 每批内部做适度并发（20），兼顾速度与云函数连接数。
+ */
 async function insertBatch(collectionName, data, size = 1000) {
 
+	if (!data) return 0;
+
+	// 单条对象直接插入
+	if (!Array.isArray(data)) {
+		if (typeof (data) == 'object') {
+			await db.collection(collectionName).add({ data });
+			return 1;
+		}
+		return 0;
+	}
+	if (data.length === 0) return 0;
+
+	const CONCURRENCY = 20;
+
 	let dataArr = dataUtil.spArr(data, size);
+	let inserted = 0;
+
 	for (let k = 0; k < dataArr.length; k++) {
-		await db.collection(collectionName).add({
-			data: dataArr[k]
-		});
+
+		let batch = dataArr[k];
+		if (!Array.isArray(batch)) batch = [batch];
+
+		for (let i = 0; i < batch.length; i += CONCURRENCY) {
+			let slice = batch.slice(i, i + CONCURRENCY);
+			await Promise.all(
+				slice.map((one) => db.collection(collectionName).add({ data: one }))
+			);
+			inserted += slice.length;
+		}
 	}
 
-	//return query._id;
+	return inserted;
 }
 
 async function insert(collectionName, data) {
